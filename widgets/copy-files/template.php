@@ -1,17 +1,27 @@
 <div class="copy-files-widget">
+
 <?php
+  $options = array();
+  foreach(site()->index() as $p) {
+    $options[$p->uri()] = $p->title();
+  }
+  
+  $optionsPlusSite = array();
+  $optionsPlusSite['/'] = site()->title();
+  $optionsPlusSite = array_merge($optionsPlusSite, $options);
+  
   $form = new Kirby\Panel\Form([
     'source' => [
-      'type' => 'page',
+      'type' => 'select',
+      'options' => $options,
       'required' => true,
-      'label' => 'Source',
-      'placeholder' => 'Page/Folder/File URL',
+      'label' => 'Page to copy',
     ],
     'dest' => [
-      'type' => 'page',
+      'type' => 'select',
+      'options' => $optionsPlusSite,
       'required' => true,
-      'label' => 'Destination (must not exist)',
-      'placeholder' => 'Destination URL',
+      'label' => 'New location',
     ]
   ], []);
   $form->on('post', function() {}); // append csrf

@@ -21,7 +21,7 @@ panel()->routes([[
   'action' => function() {
     $user = site()->user()->current();
     if (!$user || (!$user->hasPermission('panel.page.create') && !$user->isAdmin())) {
-      return Response::error("Must be authenticated as user with page creation permissions");
+      return Response::error("Keine Berechtigung");
     }
 
     $sourceUrl = stripDotSegments(get('source'));
@@ -31,45 +31,40 @@ panel()->routes([[
     $source = page($sourceUrl);
     if ($source) {
       $sourceUrl = $source->diruri();
+      $sourceUid = $source->uid();
     }
 
-    // Convert existing page sub-URI of destination to its proper path,
-    // adding number prefixes where needed (ie. blog -> 4-blog)
-    $destParts = explode('/', $destUrl);
-    $destPage = site();
-    foreach ($destParts as $index => $part) {
-      $destPage = $destPage->children()->find($part);
-      if ($destPage == null) {
-        break;
-      } else {
-        $destParts[$index] = $destPage->dirname();
-      }
+    // Convert destination uri to its proper path
+    
+    if ($destUrl == "/") {
+      $dest = site();
+    }
+    else {
+      $dest = page($destUrl);
+    }
+    
+    if ($dest) {
+      $destUid = $sourceUid . "-2";
+      $destUri = $dest->uri() . DS . $destUid;
+      $destUrl = $dest->diruri() . DS . $destUid;
     }
 
     $sourcePath = kirby()->roots->content() . DS . $sourceUrl;
-    $destPath = kirby()->roots->content() . DS . implode('/', $destParts);
-
-    if (!file_exists($sourcePath)) {
-      return Response::error("Source doesn't exist");
-    }
-    if (file_exists($destPath)) {
-      return Response::error("Destination already exists");
-    }
+    $destPath = kirby()->roots->content() . DS . $destUrl;
+    
     if (is_dir($sourcePath)) {
       if (!Dir::copy($sourcePath, $destPath)) {
-        return Response::error("Failed to copy folder");
+        return Response::error("Seite konnte nicht kopiert werden");
       }
-    } else if (!@copy($sourcePath, $destPath)) {
-      return Response::error("Failed to copy file");
     }
-
+    
     // Response data
     $data = [];
     if ($source) {
-      $data['url'] = panel()->urls->index . "/pages/$destUrl/edit";
-      panel()->notify("Page cloned");
+      $data['url'] = panel()->urls->index . "/pages/$destUri/edit";
+      panel()->notify("Seite kopiert");
     }
 
-    return Response::success("Copy successful", $data);
+    return Response::success("Kopieren erfolgreich", $data);
   },
 ]]);
