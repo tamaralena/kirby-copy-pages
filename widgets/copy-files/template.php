@@ -28,7 +28,7 @@
     ],
     'uid' => [
       'type' => 'text',
-      'label' => 'Neue UID <small>(optional)</small>',
+      'label' => 'Neuer URL-Anhang (optional)',
       'placeholder' => $firstUid
     ]
   ], []);
