@@ -17,12 +17,14 @@
       'options' => $options,
       'required' => true,
       'label' => 'Zu kopierende Seite',
+      'placeholder' => 'Seite auswählen...'
     ],
     'dest' => [
       'type' => 'select',
       'options' => $optionsPlusSite,
       'required' => true,
-      'label' => 'Kopieren nach...'
+      'label' => 'Kopieren nach...',
+      'placeholder' => 'Seite auswählen...'
     ],
     'uid' => [
       'type' => 'text',
@@ -33,7 +35,7 @@
   $form->on('post', function() {}); // append csrf
   $form->action('copy-files/api/copy');
   $form->attr('data-autosubmit', 'native');
-  $form->buttons->submit->val('Copy');
+  $form->buttons->submit->val('Kopieren');
   $form->buttons->cancel = '';
   echo $form;
 ?>
