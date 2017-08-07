@@ -27,24 +27,25 @@ panel()->routes([[
     $sourceUrl = stripDotSegments(get('source'));
     $destUrl = stripDotSegments(get('dest'));
 
-    // Convert source uri to its proper path
     $source = page($sourceUrl);
     if ($source) {
       $sourceUrl = $source->diruri();
       $sourceUid = $source->uid();
     }
 
-    // Convert destination uri to its proper path
-    
     if ($destUrl == "/") {
       $dest = site();
     }
     else {
       $dest = page($destUrl);
     }
-    
     if ($dest) {
-      $destUid = $sourceUid . "-2";
+      if (get('uid')) {
+        $destUid = get('uid');
+      }
+      else {
+        $destUid = $sourceUid . "-2";
+      }
       $destUri = $dest->uri() . DS . $destUid;
       $destUrl = $dest->diruri() . DS . $destUid;
     }

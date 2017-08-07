@@ -5,6 +5,7 @@
   foreach(site()->index() as $p) {
     $options[$p->uri()] = $p->title();
   }
+  $firstUid = key($options) . "-2";
   
   $optionsPlusSite = array();
   $optionsPlusSite['/'] = site()->title();
@@ -15,13 +16,18 @@
       'type' => 'select',
       'options' => $options,
       'required' => true,
-      'label' => 'Page to copy',
+      'label' => 'Zu kopierende Seite',
     ],
     'dest' => [
       'type' => 'select',
       'options' => $optionsPlusSite,
       'required' => true,
-      'label' => 'New location',
+      'label' => 'Kopieren nach...'
+    ],
+    'uid' => [
+      'type' => 'text',
+      'label' => 'Neue UID <small>(optional)</small>',
+      'placeholder' => $firstUid
     ]
   ], []);
   $form->on('post', function() {}); // append csrf
@@ -34,6 +40,12 @@
 </div>
 
 <script>
+  
+  $('.copy-files-widget #form-field-source').on("change", function(evt) {
+    uid = $(this).find("option:selected").val().split("/").pop() + "-2";    
+    $('.copy-files-widget #form-field-uid').attr("placeholder", uid);
+  });
+  
   $('.copy-files-widget form').submit(function(evt) {
     evt.preventDefault()
     var $form = $(this)
