@@ -35,7 +35,7 @@
   $form->on('post', function() {}); // append csrf
   $form->action('copy-pages/api/copy');
   $form->attr('data-autosubmit', 'native');
-  $form->buttons->submit->val('Kopieren');
+  $form->buttons->submit->val('Seite kopieren');
   $form->buttons->cancel = '';
   echo $form;
 ?>
