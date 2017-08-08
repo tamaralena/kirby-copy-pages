@@ -70,11 +70,14 @@ panel()->routes([[
       $destUri = $destUri . "-" . $i;
       
     }
-    
-    if (is_dir($sourcePath)) {
+        
+    if (is_dir($sourcePath) AND substr($destPath, 0,strrpos($destPath, '/')) != $sourcePath) {
       if (!Dir::copy($sourcePath, $destPath)) {
         return Response::error("Seite konnte nicht kopiert werden");
       }
+    }
+    else {
+      return Response::error("Seite konnte nicht kopiert werden");
     }
     
     // Response data
