@@ -3,9 +3,10 @@
 <?php
   $options = array();
   foreach(site()->index() as $p) {
+    if ($p->title() == "_modules" OR str::contains($p->intendedTemplate(), 'module.')) continue;
     $options[$p->uri()] = $p->title();
   }
-  $firstUid = key($options) . "-2";
+  $firstUid = key($options);
   
   $optionsPlusSite = array();
   $optionsPlusSite['/'] = site()->title();
@@ -44,7 +45,7 @@
 <script>
   
   $('.copy-pages-widget #form-field-source').on("change", function(evt) {
-    uid = $(this).find("option:selected").val().split("/").pop() + "-2";    
+    uid = $(this).find("option:selected").val().split("/").pop();    
     $('.copy-pages-widget #form-field-uid').attr("placeholder", uid);
   });
   
@@ -55,7 +56,7 @@
     $buttons.find('.outcome').remove()
     function showMessage(msg, success) {
       var $msg = $('<p class="outcome" />').text(msg)
-      $msg.css({color: success ? '#8dae28' : '#b3000a', float: 'left'})
+      $msg.css({color: success ? '#8dae28' : '#b3000a', marginBottom: '1.5em'})
       $msg.prependTo($buttons)
     }
     $.ajax($form.attr('action'), {

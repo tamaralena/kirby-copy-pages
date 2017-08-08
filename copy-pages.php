@@ -35,23 +35,35 @@ panel()->routes([[
 
     if ($destUrl == "/") {
       $dest = site();
+      $uri = DS;
+      $diruri = DS;
     }
     else {
       $dest = page($destUrl);
+      $uri = $dest->uri() . DS;
+      $diruri = $dest->diruri() . DS;
     }
     if ($dest) {
       if (get('uid')) {
         $destUid = get('uid');
       }
       else {
-        $destUid = $sourceUid . "-2";
+        $destUid = $sourceUid;
       }
-      $destUri = $dest->uri() . DS . $destUid;
-      $destUrl = $dest->diruri() . DS . $destUid;
+      $destUri = $uri . $destUid;
+      $destUrl = $diruri . $destUid;
     }
-
+    
     $sourcePath = kirby()->roots->content() . DS . $sourceUrl;
     $destPath = kirby()->roots->content() . DS . $destUrl;
+        
+    $destPathBefore = substr($destPath, 0,strrpos($destPath, '/'));
+    $destPathAfter = substr($destPath, strrpos($destPath, '/') + 1);
+    
+    if (file_exists($destPath) OR count(glob($destPathBefore . '*-' . $destPathAfter)) > 0) {
+      $destPath = $destPath . "-2";
+      $destUri = $destUri . "-2";
+    }
     
     if (is_dir($sourcePath)) {
       if (!Dir::copy($sourcePath, $destPath)) {
