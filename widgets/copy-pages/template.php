@@ -1,4 +1,4 @@
-<div class="copy-files-widget">
+<div class="copy-pages-widget">
 
 <?php
   $options = array();
@@ -33,7 +33,7 @@
     ]
   ], []);
   $form->on('post', function() {}); // append csrf
-  $form->action('copy-files/api/copy');
+  $form->action('copy-pages/api/copy');
   $form->attr('data-autosubmit', 'native');
   $form->buttons->submit->val('Kopieren');
   $form->buttons->cancel = '';
@@ -43,12 +43,12 @@
 
 <script>
   
-  $('.copy-files-widget #form-field-source').on("change", function(evt) {
+  $('.copy-pages-widget #form-field-source').on("change", function(evt) {
     uid = $(this).find("option:selected").val().split("/").pop() + "-2";    
-    $('.copy-files-widget #form-field-uid').attr("placeholder", uid);
+    $('.copy-pages-widget #form-field-uid').attr("placeholder", uid);
   });
   
-  $('.copy-files-widget form').submit(function(evt) {
+  $('.copy-pages-widget form').submit(function(evt) {
     evt.preventDefault()
     var $form = $(this)
     var $buttons = $form.find('.fieldset.buttons')

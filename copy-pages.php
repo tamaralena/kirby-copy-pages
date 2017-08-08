@@ -1,6 +1,6 @@
 <?php
 
-namespace Kirby\Plugins\CopyFiles;
+namespace Kirby\Plugins\CopyPages;
 
 use Response;
 use Dir;
@@ -12,11 +12,11 @@ function stripDotSegments($path) {
 }
 
 // Load widget
-kirby()->set('widget', 'copy-files', __DIR__ . DS . 'widgets' . DS . 'copy-files');
+kirby()->set('widget', 'copy-pages', __DIR__ . DS . 'widgets' . DS . 'copy-pages');
 
 // Add routes
 panel()->routes([[
-  'pattern' => 'copy-files/api/copy',
+  'pattern' => 'copy-pages/api/copy',
   'method' => 'POST',
   'action' => function() {
     $user = site()->user()->current();

@@ -14,20 +14,20 @@ Dashboard widget for Kirby panel that allows users to copy (clone) existing page
 
 ```
 cd path/to/kirby
-kirby plugin:install mogelbrod/kirby-copy-files
+kirby plugin:install mogelbrod/kirby-copy-pages
 ```
 
-This should install the plugin at `site/plugins/copy-files`.
+This should install the plugin at `site/plugins/copy-pages`.
 
 ### Git Submodule
 
 ```
 cd path/to/kirby
-git submodule add https://github.com/mogelbrod/kirby-copy-files.git site/plugins/copy-files
+git submodule add https://github.com/mogelbrod/kirby-copy-pages.git site/plugins/copy-pages
 ```
 
 ### Manual download
 
-1. [Download](https://github.com/mogelbrod/kirby-copy-files/archive/master.zip) a ZIP archive of this repository
+1. [Download](https://github.com/mogelbrod/kirby-copy-pages/archive/master.zip) a ZIP archive of this repository
 2. Extract the contents of `master.zip`
-3. Rename the extracted folder to `copy-files` and move it into the `site/plugins/` directory in your Kirby project
+3. Rename the extracted folder to `copy-pages` and move it into the `site/plugins/` directory in your Kirby project

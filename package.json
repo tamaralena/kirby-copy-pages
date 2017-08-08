@@ -1,8 +1,8 @@
 {
-  "name": "kirby-copy-files",
-  "author": "Victor Hallberg <victor@hallberg.cc>",
+  "name": "kirby-copy-pages",
+  "author": "Thomas Günther <mail@medienbaecker.com>",
   "version": "1.0.0",
-  "description": "Dashboard widget for Kirby panel that allows users to copy (clone) existing pages and files.",
+  "description": "Dashboard widget for Kirby panel that allows users to copy (clone) existing pages.",
   "type": "kirby-plugin",
   "license": "MIT"
 }
