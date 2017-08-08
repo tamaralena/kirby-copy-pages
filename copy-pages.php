@@ -61,8 +61,14 @@ panel()->routes([[
     $destPathAfter = substr($destPath, strrpos($destPath, '/') + 1);
     
     if (file_exists($destPath) OR count(glob($destPathBefore . '*-' . $destPathAfter)) > 0) {
-      $destPath = $destPath . "-2";
-      $destUri = $destUri . "-2";
+      
+      $i = 2;
+      while(file_exists($destPath . "-" . $i)) {
+        $i++;
+      }
+      $destPath = $destPath . "-" . $i;
+      $destUri = $destUri . "-" . $i;
+      
     }
     
     if (is_dir($sourcePath)) {
