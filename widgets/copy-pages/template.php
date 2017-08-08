@@ -24,7 +24,7 @@
       'type' => 'select',
       'options' => $optionsPlusSite,
       'required' => true,
-      'label' => 'Kopieren nach...',
+      'label' => 'Kopieren nach',
       'placeholder' => 'Seite auswählen...'
     ],
     'uid' => [
