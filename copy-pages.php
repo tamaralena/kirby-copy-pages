@@ -87,6 +87,8 @@ panel()->routes([[
       panel()->notify("Seite kopiert");
     }
 
-    return Response::success("Kopieren erfolgreich", $data);
+    panel()->notify("Seite erfolgreich dupliziert");
+    panel()->redirect('/');
+
   },
 ]]);
