@@ -61,7 +61,7 @@ panel()->routes(
             $destPathBefore = substr($destPath, 0, strrpos($destPath, '/'));
             $destPathAfter = substr($destPath, strrpos($destPath, '/') + 1);
 
-            if (file_exists($destPath) or count(glob($destPathBefore . '*-' . $destPathAfter)) > 0) {
+            if (file_exists($destPath) or count(glob($destPathBefore . '/*-' . $destPathAfter)) > 0) {
                 $i = 2;
                 while (file_exists($destPath . "-" . $i)) {
                     $i++;
